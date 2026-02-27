@@ -1,1 +1,1 @@
-find /app -name "*.jar" && java $JAVA_OPTS -Dserver.port=$PORT -jar
+java $JAVA_OPTS -Dserver.port=$PORT -jar
