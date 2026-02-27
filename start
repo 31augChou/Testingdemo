@@ -1,0 +1,1 @@
+java $JAVA_OPTS -jar $(find . -name "*.jar" | grep -v "plain" | head -n 1)
