@@ -1,14 +1,13 @@
-
-# Use an official Java runtime as a parent image
-FROM eclipse-temurin:17-jre-alpine
-
-# Set the working directory inside the container
+# Stage 1: Build
+FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
+COPY . .
+RUN chmod +x gradlew
+RUN ./gradlew bootJar --no-daemon
 
-# Copy the jar from your Gradle build folder to the container
-# Based on your previous error, this is the exact path fix:
-COPY build/libs/*.jar app.jar
-
-# Run the jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Stage 2: Run
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$PORT -jar app.jar"]
