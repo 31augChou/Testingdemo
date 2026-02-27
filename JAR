@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar $(find /app -name "*.jar" -not -name "*plain*" | head -1)
+java $JAVA_OPTS -jar build/libs/*.jar
