@@ -1,1 +1,1 @@
-find /app -name "*.jar" && java $JAVA_OPTS -Dserver.port=$PORT -jar $(find /app -name "*.jar" -not -name "*plain*" | head -1)
+find /app -name "*.jar" && java $JAVA_OPTS -Dserver.port=$PORT -jar
